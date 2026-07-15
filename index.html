@@ -29,29 +29,26 @@
       radial-gradient(800px 420px at 0% 100%, #B9A6DC 0%, transparent 55%),
       var(--bg);
     min-height:100dvh;
-    padding:calc(env(safe-area-inset-top) + 14px) 16px calc(env(safe-area-inset-bottom) + 110px);
+    padding:calc(env(safe-area-inset-top) + 14px) 16px calc(env(safe-area-inset-bottom) + 150px);
     line-height:1.45;
   }
   body::after{
-    content:"";position:fixed;inset:0;pointer-events:none;z-index:99;opacity:.5;
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:99;opacity:.45;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.42'/%3E%3C/svg%3E");
     mix-blend-mode:multiply;
   }
   .wrap{max-width:440px;margin:0 auto}
-
   .brand{display:flex;align-items:center;gap:11px;padding:2px 4px 16px}
   .seal{
     width:38px;height:38px;border-radius:50%;flex:0 0 auto;display:grid;place-items:center;font-size:17px;
     background:radial-gradient(circle at 36% 28%, #8B3FE8 0%, #5B1FA8 45%, #33096B 100%);
-    box-shadow:
-      inset 0 2px 4px rgba(255,255,255,.45),
-      inset 0 -4px 9px rgba(20,2,50,.65),
-      inset 0 0 0 2.5px #C9A227,
-      0 4px 9px rgba(45,10,105,.45);
-    filter:drop-shadow(0 1px 0 rgba(255,255,255,.5));
+    box-shadow:inset 0 2px 4px rgba(255,255,255,.45),inset 0 -4px 9px rgba(20,2,50,.65),inset 0 0 0 2.5px #C9A227,0 4px 9px rgba(45,10,105,.45);
   }
   .brand b{font-family:"Marcellus";font-weight:400;letter-spacing:.16em;font-size:15px;display:block}
   .brand span{font-family:"Space Mono";font-size:9px;color:var(--muted-2);letter-spacing:.26em}
+
+  .view{display:none;animation:rise .4s both}
+  .view.on{display:block}
 
   /* ===== PASS ===== */
   .pass{position:relative;border-radius:var(--radius);overflow:hidden;
@@ -62,17 +59,17 @@
       linear-gradient(160deg,#FFFFFF,var(--paper) 55%,var(--paper-2));
     border:1px solid var(--edge);
     box-shadow:0 22px 44px -24px rgba(42,15,94,.55), inset 0 1px 0 #fff;
-    padding:18px 18px 12px;animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
+    padding:18px 18px 12px}
   .pass::before{content:"";position:absolute;inset:6px;border-radius:14px;border:1px double var(--gold-line);pointer-events:none}
-  .pageband{display:flex;justify-content:space-between;align-items:flex-start;font-family:"Space Mono";font-size:9px;letter-spacing:.22em;color:var(--gold);margin-bottom:14px}
+  .pageband{display:flex;justify-content:space-between;font-family:"Space Mono";font-size:9px;letter-spacing:.22em;color:var(--gold);margin-bottom:14px}
   .pageband .r{color:var(--muted);text-align:right}
   .idrow{display:flex;gap:15px;align-items:flex-start}
   .photo{width:92px;height:112px;border-radius:10px;flex:0 0 auto;position:relative;
     background:radial-gradient(120% 90% at 50% 0%, #FFFFFF, #DFD3F2);
     border:1px solid var(--edge);box-shadow:inset 0 0 0 3px rgba(255,255,255,.7);
     display:grid;place-items:center;overflow:hidden;cursor:pointer;background-size:cover;background-position:center}
-  .photo .lion{font-size:46px;filter:drop-shadow(0 3px 6px rgba(42,15,94,.3))}
-  .photo .cam{position:absolute;right:5px;bottom:5px;width:22px;height:22px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:12px;color:var(--gold-deep);border:1px solid var(--gold-line);box-shadow:0 2px 5px rgba(42,15,94,.3)}
+  .photo .lion{font-size:46px}
+  .photo .cam{position:absolute;right:5px;bottom:5px;width:22px;height:22px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:12px;color:var(--gold-deep);border:1px solid var(--gold-line)}
   .photo.hasimg .lion{display:none}
   .fields{flex:1;min-width:0}
   .field{margin-bottom:9px}
@@ -89,47 +86,68 @@
   .mrz div{font-family:"Space Mono";font-weight:700;color:#2A0F5E;white-space:nowrap;overflow:hidden;font-size:clamp(8px,2.9vw,11px);letter-spacing:.06em;line-height:1.9}
   .mrz div span{color:var(--gold)}
 
-  /* ===== TAMPONS ===== */
   .section-h{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:26px 2px 12px}
   .section-h h2{font-family:"Marcellus";font-weight:400;font-size:16px;letter-spacing:.14em;margin:0}
   .section-h .add{font-family:"Space Mono";font-size:10px;letter-spacing:.08em;color:var(--gold-deep);background:#fff;border:1px solid var(--gold-line);border-radius:999px;padding:7px 12px;cursor:pointer;white-space:nowrap}
-  .stamps{
-    position:relative;display:flex;flex-wrap:wrap;justify-content:center;
-    padding:22px 10px;border-radius:var(--radius);min-height:150px;
-    background:
-      repeating-radial-gradient(circle at 70% 30%, transparent 0 7px, rgba(91,31,168,.06) 7px 8px),
-      linear-gradient(160deg,#FFFFFF,var(--paper-2));
-    border:1px solid var(--edge);
-    box-shadow:inset 0 1px 0 #fff;
-  }
-  .stamp{
-    width:104px;height:104px;border-radius:50%;flex:0 0 auto;
-    display:grid;place-items:center;text-align:center;padding:12px;cursor:pointer;position:relative;
-    border:2.5px solid currentColor;color:var(--st-violet);
-    transform:rotate(var(--r,-8deg));
-    margin:var(--my,-8px) var(--mx,-14px);
-    mix-blend-mode:multiply;opacity:.9;
-    animation:thunk .4s cubic-bezier(.2,1.4,.4,1) both;
-  }
+  .stamps{position:relative;display:flex;flex-wrap:wrap;justify-content:center;padding:22px 10px;border-radius:var(--radius);min-height:150px;
+    background:repeating-radial-gradient(circle at 70% 30%, transparent 0 7px, rgba(91,31,168,.06) 7px 8px),linear-gradient(160deg,#FFFFFF,var(--paper-2));
+    border:1px solid var(--edge)}
+  .stamp{width:104px;height:104px;border-radius:50%;flex:0 0 auto;display:grid;place-items:center;text-align:center;padding:12px;cursor:pointer;position:relative;
+    border:2.5px solid currentColor;color:var(--st-violet);transform:rotate(var(--r,-8deg));margin:var(--my,-8px) var(--mx,-14px);
+    mix-blend-mode:multiply;opacity:.9;animation:thunk .4s cubic-bezier(.2,1.4,.4,1) both}
   .stamp::after{content:"";position:absolute;inset:5px;border:1px solid currentColor;border-radius:50%;opacity:.6}
-  .stamp .n{font-family:"Space Mono";font-weight:700;font-size:9.5px;letter-spacing:.02em;line-height:1.15;color:currentColor}
+  .stamp .n{font-family:"Space Mono";font-weight:700;font-size:9.5px;line-height:1.15;color:currentColor}
   .stamp .c{font-size:8px;color:currentColor;opacity:.9;margin-top:2px;letter-spacing:.1em;text-transform:uppercase}
   .stamp .y{font-family:"Marcellus";font-size:14px;color:currentColor;margin-top:2px}
-  .stamp .star{position:absolute;top:12px;left:0;right:0;font-size:7px;color:currentColor;letter-spacing:.5px}
+  .stamp .star{position:absolute;top:12px;left:0;right:0;font-size:7px;color:currentColor}
   .empty{text-align:center;color:var(--muted);padding:18px 10px}
   .empty b{display:block;font-family:"Marcellus";font-size:15px;color:var(--ink);margin-bottom:4px}
   .empty span{font-size:12.5px}
-
   .stats{display:flex;gap:10px;margin-top:14px}
   .stat{flex:1;text-align:center;padding:12px 6px;border-radius:14px;background:#fff;border:1px solid var(--gold-line)}
   .stat b{font-family:"Marcellus";font-size:22px;color:var(--gold-deep);display:block;line-height:1}
   .stat span{font-family:"Space Mono";font-size:8.5px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
 
-  .cta-bar{position:fixed;left:0;right:0;bottom:0;z-index:40;padding:12px 16px calc(12px + env(safe-area-inset-bottom));
-    background:linear-gradient(transparent,var(--bg) 38%);display:flex;gap:10px;max-width:440px;margin:0 auto}
-  .btn{flex:1;border:none;border-radius:14px;padding:15px;cursor:pointer;font-family:"Inter";font-weight:700;font-size:15px}
-  .btn-primary{color:#3A2405;background:linear-gradient(150deg,#F2CE74,#B8842A);box-shadow:0 10px 24px -8px rgba(110,74,8,.75)}
-  .btn-ghost{flex:0 0 auto;width:54px;color:var(--gold-deep);background:#fff;border:1px solid var(--gold-line);font-size:17px}
+  /* ===== ÉVÉNEMENTS ===== */
+  .ev{display:flex;gap:12px;padding:13px;border-radius:16px;background:linear-gradient(160deg,#FFF,var(--paper));border:1px solid var(--edge);margin-bottom:11px;box-shadow:0 6px 14px -10px rgba(42,15,94,.6)}
+  .ev-date{width:50px;flex:0 0 auto;text-align:center;border-right:1px solid var(--edge);padding-right:10px}
+  .ev-date b{font-family:"Marcellus";font-size:20px;display:block;line-height:1;color:var(--st-violet)}
+  .ev-date span{font-family:"Space Mono";font-size:8.5px;letter-spacing:.12em;color:var(--muted-2);text-transform:uppercase}
+  .ev-body{flex:1;min-width:0}
+  .ev-body h3{margin:0 0 2px;font-size:15px;font-weight:700}
+  .ev-city{font-family:"Space Mono";font-size:9.5px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+  .ev-who{display:flex;align-items:center;gap:6px;margin-top:8px}
+  .av{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:11px;background:var(--paper-2);border:1.5px solid #fff;margin-left:-7px;box-shadow:0 1px 3px rgba(42,15,94,.3)}
+  .av:first-child{margin-left:0}
+  .ev-who p{margin:0 0 0 5px;font-size:11.5px;color:var(--muted)}
+  .ev-go{margin-top:10px;display:flex;gap:7px}
+  .mini{font-family:"Space Mono";font-size:9.5px;letter-spacing:.06em;padding:7px 11px;border-radius:999px;cursor:pointer;border:1px solid var(--gold-line);background:#fff;color:var(--gold-deep)}
+  .mini.on{background:linear-gradient(150deg,#F2CE74,#B8842A);color:#3A2405;border-color:transparent;font-weight:700}
+  .mini.done{background:rgba(91,31,168,.1);border-color:rgba(91,31,168,.4);color:var(--st-violet)}
+
+  /* ===== DANSEURS ===== */
+  .people{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+  .pcard{border-radius:16px;padding:13px;background:linear-gradient(160deg,#FFF,var(--paper-2));border:1px solid var(--edge);text-align:center;box-shadow:0 6px 14px -10px rgba(42,15,94,.6)}
+  .pcard .pa{width:52px;height:52px;border-radius:10px;margin:0 auto 8px;display:grid;place-items:center;font-size:27px;background:radial-gradient(120% 90% at 50% 0%,#FFF,#DFD3F2);border:1px solid var(--edge)}
+  .pcard b{font-size:13.5px;display:block}
+  .pcard .pr{font-family:"Space Mono";font-size:8.5px;letter-spacing:.1em;color:var(--muted-2);text-transform:uppercase;margin-top:2px;display:block}
+  .pcard .pn{margin-top:9px;font-size:11px;color:var(--st-violet);font-weight:600}
+  .pcard .pdots{display:flex;justify-content:center;gap:3px;margin-top:7px}
+  .pdot{width:8px;height:8px;border-radius:50%;opacity:.8}
+
+  /* ===== NAV ===== */
+  .nav{position:fixed;left:0;right:0;bottom:0;z-index:40;max-width:440px;margin:0 auto;
+    padding:8px 10px calc(8px + env(safe-area-inset-bottom));
+    background:rgba(243,238,251,.92);backdrop-filter:blur(12px);border-top:1px solid var(--edge);display:flex}
+  .tab{flex:1;background:none;border:none;padding:8px 4px;cursor:pointer;color:var(--muted-2);display:grid;gap:3px;justify-items:center}
+  .tab i{font-style:normal;font-size:18px;opacity:.5;transition:opacity .2s}
+  .tab b{font-family:"Space Mono";font-size:8.5px;letter-spacing:.1em;font-weight:700;text-transform:uppercase}
+  .tab.on{color:var(--st-violet)}
+  .tab.on i{opacity:1}
+  .fab{position:fixed;right:16px;bottom:calc(78px + env(safe-area-inset-bottom));z-index:41;
+    border:none;border-radius:14px;padding:14px 18px;cursor:pointer;font-family:"Inter";font-weight:700;font-size:14px;
+    color:#3A2405;background:linear-gradient(150deg,#F2CE74,#B8842A);box-shadow:0 10px 24px -8px rgba(110,74,8,.8);
+    max-width:calc(440px - 32px)}
 
   .sheet{position:fixed;inset:0;z-index:50;display:none;background:rgba(42,15,94,.45);backdrop-filter:blur(5px);align-items:flex-end}
   .sheet.open{display:flex;animation:fade .2s both}
@@ -144,8 +162,11 @@
   .rate button{flex:1;background:#fff;border:1px solid var(--edge);color:var(--muted-2);border-radius:9px;padding:10px 0;font-size:16px;cursor:pointer}
   .rate button.on{color:var(--gold-deep);border-color:var(--gold);background:rgba(232,199,102,.22)}
   .sheet-actions{display:flex;gap:10px;margin-top:8px}
+  .btn{flex:1;border:none;border-radius:14px;padding:15px;cursor:pointer;font-family:"Inter";font-weight:700;font-size:15px}
+  .btn-primary{color:#3A2405;background:linear-gradient(150deg,#F2CE74,#B8842A)}
+  .btn-ghost{color:var(--gold-deep);background:#fff;border:1px solid var(--gold-line)}
   :focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-  @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
   @keyframes thunk{from{opacity:0;transform:rotate(var(--r,-8deg)) scale(1.5)}to{opacity:.9;transform:rotate(var(--r,-8deg)) scale(1)}}
   @keyframes fade{from{opacity:0}to{opacity:1}}
   @media (prefers-reduced-motion:reduce){*{animation:none!important}}
@@ -155,79 +176,102 @@
 <div class="wrap">
   <div class="brand">
     <div class="seal">🦁</div>
-    <div><b>KIZPASS</b><span>PASSEPORT DE DANSE</span></div>
+    <div><b>KIZPASS</b><span id="subtitle">PASSEPORT DE DANSE</span></div>
   </div>
 
-  <div class="pass">
-    <div class="pageband">
-      <div>COMMUNAUTÉ&nbsp;GALACTIQUE</div>
-      <div class="r">TYPE&nbsp;·&nbsp;KP<br/>N°&nbsp;<span id="passno">—</span></div>
-    </div>
-    <div class="idrow">
-      <div class="photo" id="photo" role="button" tabindex="0" aria-label="Changer la photo">
-        <div class="lion">🦁</div><div class="cam">＋</div>
+  <!-- ===== VUE 1 : MON PASS ===== -->
+  <div class="view on" id="v-pass">
+    <div class="pass">
+      <div class="pageband">
+        <div>COMMUNAUTÉ&nbsp;GALACTIQUE</div>
+        <div class="r">TYPE&nbsp;·&nbsp;KP<br/>N°&nbsp;<span id="passno">—</span></div>
       </div>
-      <div class="fields">
-        <div class="field"><div class="k">Nom / Blaze</div><div class="v" id="f-name">—</div></div>
-        <div class="field"><div class="k">Rôle</div><div class="v small" id="f-role">—</div></div>
-        <div class="field"><div class="k">Origine</div><div class="v small" id="f-origin">—</div></div>
-        <div class="field"><div class="k">Styles</div><div class="chips" id="f-styles"></div></div>
+      <div class="idrow">
+        <div class="photo" id="photo" role="button" tabindex="0" aria-label="Changer la photo">
+          <div class="lion">🦁</div><div class="cam">＋</div>
+        </div>
+        <div class="fields">
+          <div class="field"><div class="k">Nom / Blaze</div><div class="v" id="f-name">—</div></div>
+          <div class="field"><div class="k">Rôle</div><div class="v small" id="f-role">—</div></div>
+          <div class="field"><div class="k">Origine</div><div class="v small" id="f-origin">—</div></div>
+          <div class="field"><div class="k">Styles</div><div class="chips" id="f-styles"></div></div>
+        </div>
       </div>
+      <div class="grid2">
+        <div class="field"><div class="k">Niveau</div><div class="v small" id="f-level">—</div></div>
+        <div class="field"><div class="k">Danse depuis</div><div class="v small" id="f-since">—</div></div>
+        <div class="field" style="grid-column:1/-1"><div class="k">Professeurs</div><div class="v small" id="f-teachers">—</div></div>
+      </div>
+      <div class="motto"><div class="k">DEVISE</div><div class="v" id="f-motto">—</div></div>
+      <div class="mrz" id="mrz"><div>—</div><div>—</div></div>
     </div>
-    <div class="grid2">
-      <div class="field"><div class="k">Niveau</div><div class="v small" id="f-level">—</div></div>
-      <div class="field"><div class="k">Danse depuis</div><div class="v small" id="f-since">—</div></div>
-      <div class="field" style="grid-column:1/-1"><div class="k">Professeurs</div><div class="v small" id="f-teachers">—</div></div>
+
+    <div class="section-h">
+      <h2>TAMPONS</h2>
+      <button class="add" id="addStamp">＋ Tamponner</button>
     </div>
-    <div class="motto"><div class="k">DEVISE</div><div class="v" id="f-motto">—</div></div>
-    <div class="mrz" id="mrz"><div>—</div><div>—</div></div>
+    <div class="stamps" id="stamps"></div>
+    <div class="stats">
+      <div class="stat"><b id="s-fest">0</b><span>Tampons</span></div>
+      <div class="stat"><b id="s-city">0</b><span>Villes</span></div>
+      <div class="stat"><b id="s-style">0</b><span>Styles</span></div>
+    </div>
   </div>
 
-  <div class="section-h">
-    <h2>TAMPONS</h2>
-    <button class="add" id="addStamp">＋ Ajouter un festival</button>
+  <!-- ===== VUE 2 : ÉVÉNEMENTS ===== -->
+  <div class="view" id="v-events">
+    <div class="section-h" style="margin-top:4px">
+      <h2>À VENIR</h2>
+      <span style="font-family:'Space Mono';font-size:9px;letter-spacing:.12em;color:var(--muted-2)" id="ev-count">—</span>
+    </div>
+    <div id="events"></div>
   </div>
-  <div class="stamps" id="stamps"></div>
 
-  <div class="stats">
-    <div class="stat"><b id="s-fest">0</b><span>Tampons</span></div>
-    <div class="stat"><b id="s-city">0</b><span>Villes</span></div>
-    <div class="stat"><b id="s-style">0</b><span>Styles</span></div>
+  <!-- ===== VUE 3 : DANSEURS ===== -->
+  <div class="view" id="v-people">
+    <div class="section-h" style="margin-top:4px">
+      <h2>DANSEURS</h2>
+      <span style="font-family:'Space Mono';font-size:9px;letter-spacing:.12em;color:var(--muted-2)" id="pp-count">—</span>
+    </div>
+    <div class="people" id="people"></div>
   </div>
 </div>
 
-<div class="cta-bar">
-  <button class="btn btn-primary" id="share">Partager mon KIZPASS</button>
-  <button class="btn btn-ghost" id="edit" aria-label="Éditer le Pass">✎</button>
-</div>
+<button class="fab" id="share">Partager mon KIZPASS</button>
+
+<nav class="nav">
+  <button class="tab on" data-v="pass"><i>🪪</i><b>Mon Pass</b></button>
+  <button class="tab" data-v="events"><i>📍</i><b>Événements</b></button>
+  <button class="tab" data-v="people"><i>👥</i><b>Danseurs</b></button>
+</nav>
 
 <div class="sheet" id="editSheet">
   <div class="sheet-inner">
     <h3>Éditer le Pass</h3>
     <label class="f"><span class="k">Nom / Blaze</span><input class="in" id="e-name"></label>
-    <label class="f"><span class="k">Rôle</span><input class="in" id="e-role" placeholder="Danseur · DJ · Leader/Follower"></label>
+    <label class="f"><span class="k">Rôle</span><input class="in" id="e-role" placeholder="Danseur · DJ"></label>
     <div class="row2">
       <label class="f"><span class="k">Origine</span><input class="in" id="e-origin"></label>
       <label class="f"><span class="k">Danse depuis</span><input class="in" id="e-since" placeholder="2019"></label>
     </div>
-    <label class="f"><span class="k">Styles (séparés par virgule)</span><input class="in" id="e-styles" placeholder="Kizomba, Urban Kiz, Semba"></label>
-    <label class="f"><span class="k">Niveau</span><input class="in" id="e-level" placeholder="Intermédiaire +"></label>
+    <label class="f"><span class="k">Styles (virgules)</span><input class="in" id="e-styles"></label>
+    <label class="f"><span class="k">Niveau</span><input class="in" id="e-level"></label>
     <label class="f"><span class="k">Professeurs</span><input class="in" id="e-teachers"></label>
     <label class="f"><span class="k">Devise</span><input class="in" id="e-motto"></label>
     <div class="sheet-actions">
       <button class="btn btn-primary" id="saveProfile">Enregistrer</button>
-      <button class="btn btn-ghost" style="width:auto;flex:1" id="cancelProfile">Annuler</button>
+      <button class="btn btn-ghost" id="cancelProfile">Annuler</button>
     </div>
   </div>
 </div>
 
 <div class="sheet" id="stampSheet">
   <div class="sheet-inner">
-    <h3>Nouveau tampon</h3>
-    <label class="f"><span class="k">Festival / Social</span><input class="in" id="st-name" placeholder="Sensual Days"></label>
+    <h3 id="stampTitle">Nouveau tampon</h3>
+    <label class="f"><span class="k">Festival / Social</span><input class="in" id="st-name"></label>
     <div class="row2">
-      <label class="f"><span class="k">Ville</span><input class="in" id="st-city" placeholder="Lisboa"></label>
-      <label class="f"><span class="k">Année</span><input class="in" id="st-year" inputmode="numeric" placeholder="2025"></label>
+      <label class="f"><span class="k">Ville</span><input class="in" id="st-city"></label>
+      <label class="f"><span class="k">Année</span><input class="in" id="st-year" inputmode="numeric"></label>
     </div>
     <label class="f"><span class="k">Ton ressenti</span></label>
     <div class="rate" id="st-rate">
@@ -235,7 +279,7 @@
     </div>
     <div class="sheet-actions" style="margin-top:16px">
       <button class="btn btn-primary" id="saveStamp">Tamponner</button>
-      <button class="btn btn-ghost" style="width:auto;flex:1" id="cancelStamp">Annuler</button>
+      <button class="btn btn-ghost" id="cancelStamp">Annuler</button>
     </div>
   </div>
 </div>
@@ -243,16 +287,60 @@
 <input type="file" id="fileIn" accept="image/*" hidden />
 
 <script>
+/* ============================================================
+   👉 LE SEUL BLOC À REMPLACER POUR BRANCHER KIZRADAR
+   Renvoie une liste d'events : {id, name, city, date (ISO), going[]}
+   ============================================================ */
+async function fetchEvents(){
+  // Quand KizRadar sera branché :
+  // const r = await fetch("https://kiz-radar.vercel.app/api/events");
+  // const d = await r.json();
+  // return d.map(e => ({id:e.id, name:e.title, city:e.city, date:e.date, going:e.going||[]}));
+  return SEED_EVENTS;
+}
+const SEED_EVENTS=[
+  {id:"e1",name:"Lisboa Kizomba Nights",city:"Lisboa",date:"2026-08-14",going:["🦊","🐼","🦉"]},
+  {id:"e2",name:"Urban Kiz Weekender",city:"Paris",date:"2026-09-05",going:["🐯","🦋"]},
+  {id:"e3",name:"Semba & Soul",city:"Luanda",date:"2026-09-26",going:["🦁","🐻","🦅","🐸"]},
+  {id:"e4",name:"Afrohouse Rooftop",city:"Rotterdam",date:"2026-10-10",going:["🐰"]},
+  {id:"e5",name:"Kiz Marathon",city:"Barcelona",date:"2026-11-21",going:["🐺","🦝","🐨"]}
+];
+const SEED_PEOPLE=[
+  {a:"🦊",n:"Ana R.",r:"Follower · Lisboa",s:7,inks:[0,2,1]},
+  {a:"🐼",n:"Malik",r:"Leader · Paris",s:12,inks:[1,3,0]},
+  {a:"🦉",n:"Chloé",r:"Prof · Lyon",s:19,inks:[2,0,3]},
+  {a:"🐯",n:"Dju",r:"DJ · Rotterdam",s:24,inks:[3,1,2]},
+  {a:"🦋",n:"Inês",r:"Follower · Porto",s:5,inks:[0,1,2]},
+  {a:"🐻",n:"Kevin",r:"Leader · Bruxelles",s:9,inks:[2,3,0]}
+];
+
 const KEY="kizpass.v1";
 const load=()=>{try{return JSON.parse(localStorage.getItem(KEY))}catch(e){return null}};
 const save=s=>{try{localStorage.setItem(KEY,JSON.stringify(s))}catch(e){}};
-let state=load()||{name:"Lionlion",role:"Danseur · DJ Kizomba Galactic",origin:"France",styles:["Kizomba","Urban Kiz","Semba","Afrohouse"],level:"Intermédiaire +",since:"2019",teachers:"—",motto:"Sounds from elsewhere, never heard, never known.",photo:null,stamps:[]};
+let state=load()||{name:"Lionlion",role:"Danseur · DJ Kizomba Galactic",origin:"France",styles:["Kizomba","Urban Kiz","Semba","Afrohouse"],level:"Intermédiaire +",since:"2019",teachers:"—",motto:"Sounds from elsewhere, never heard, never known.",photo:null,stamps:[],going:[]};
+if(!state.going)state.going=[];
 const $=id=>document.getElementById(id);
 const inks=["var(--st-violet)","var(--st-teal)","var(--st-rose)","var(--st-ochre)"];
+const inkHex=["#5B1FA8","#0B7A6B","#C21E5E","#9A5A0E"];
+const MOIS=["JAN","FÉV","MAR","AVR","MAI","JUIN","JUIL","AOÛT","SEP","OCT","NOV","DÉC"];
+const esc=t=>(t==null?"":String(t)).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const chev=s=>s.replace(/</g,'<span>‹</span>');
 function passNumber(n){let h=0;for(const c of(n||"KIZ"))h=(h*31+c.charCodeAt(0))>>>0;return "GX"+String(h%900000+100000)}
 function mrz(s){const cl=t=>(t||"").toUpperCase().replace(/[^A-Z0-9]+/g,"<");const pad=(t,n)=>(t+"<".repeat(n)).slice(0,n);return [pad(`KIZ<PASS<<${cl(s.name)}<<${cl(s.role)}`,42),pad(`${cl(s.origin)}<<${cl(s.motto)}`,42)]}
-const chev=s=>s.replace(/</g,'<span>‹</span>');
-const esc=t=>(t==null?"":String(t)).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+/* ---------- navigation ---------- */
+const SUB={pass:"PASSEPORT DE DANSE",events:"QUI VA OÙ",people:"LA COMMUNAUTÉ"};
+document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{
+  const v=t.dataset.v;
+  document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("on",x===t));
+  document.querySelectorAll(".view").forEach(x=>x.classList.remove("on"));
+  $("v-"+v).classList.add("on");
+  $("subtitle").textContent=SUB[v];
+  $("share").style.display=v==="pass"?"":"none";
+  window.scrollTo(0,0);
+});
+
+/* ---------- pass ---------- */
 function render(){
   $("f-name").textContent=state.name||"—";$("f-role").textContent=state.role||"—";$("f-origin").textContent=state.origin||"—";
   $("f-level").textContent=state.level||"—";$("f-since").textContent=state.since||"—";$("f-teachers").textContent=state.teachers||"—";
@@ -264,7 +352,7 @@ function render(){
 }
 function renderStamps(){
   const w=$("stamps");w.innerHTML="";
-  if(!state.stamps.length){w.innerHTML=`<div class="empty"><b>Aucun tampon pour l'instant</b><span>Ton premier festival t'attend. Tamponne-le.</span></div>`}
+  if(!state.stamps.length){w.innerHTML=`<div class="empty"><b>Aucun tampon pour l'instant</b><span>Choisis un festival dans Événements et tamponne-le.</span></div>`}
   else{state.stamps.forEach((st,i)=>{
     const el=document.createElement("div");el.className="stamp";
     el.style.color=inks[i%inks.length];
@@ -279,23 +367,112 @@ function renderStamps(){
   $("s-city").textContent=new Set(state.stamps.map(s=>(s.city||"").toLowerCase()).filter(Boolean)).size;
   $("s-style").textContent=(state.styles||[]).length;
 }
-$("edit").onclick=()=>{$("e-name").value=state.name;$("e-role").value=state.role;$("e-origin").value=state.origin;$("e-since").value=state.since;$("e-styles").value=(state.styles||[]).join(", ");$("e-level").value=state.level;$("e-teachers").value=state.teachers;$("e-motto").value=state.motto;openSheet("editSheet")};
-$("saveProfile").onclick=()=>{state.name=$("e-name").value.trim()||state.name;state.role=$("e-role").value.trim();state.origin=$("e-origin").value.trim();state.since=$("e-since").value.trim();state.styles=$("e-styles").value.split(",").map(s=>s.trim()).filter(Boolean);state.level=$("e-level").value.trim();state.teachers=$("e-teachers").value.trim()||"—";state.motto=$("e-motto").value.trim();closeSheet("editSheet");render()};
+
+/* ---------- événements ---------- */
+let EVENTS=[];
+async function renderEvents(){
+  const w=$("events");w.innerHTML=`<div class="empty"><span>Chargement…</span></div>`;
+  try{EVENTS=await fetchEvents()}catch(e){EVENTS=[]}
+  if(!EVENTS.length){w.innerHTML=`<div class="empty"><b>Aucun événement</b><span>Reviens bientôt, la carte se remplit.</span></div>`;return}
+  $("ev-count").textContent=EVENTS.length+" ÉVÉNEMENTS";
+  w.innerHTML="";
+  EVENTS.forEach(e=>{
+    const d=new Date(e.date);
+    const going=state.going.includes(e.id);
+    const done=state.stamps.some(s=>s.id===e.id);
+    const others=(e.going||[]).slice(0,4);
+    const el=document.createElement("div");el.className="ev";
+    el.innerHTML=`
+      <div class="ev-date"><b>${d.getDate()}</b><span>${MOIS[d.getMonth()]}</span></div>
+      <div class="ev-body">
+        <h3>${esc(e.name)}</h3>
+        <div class="ev-city">${esc(e.city)}</div>
+        <div class="ev-who">
+          ${others.map(a=>`<div class="av">${a}</div>`).join("")}
+          <p>${(e.going||[]).length+(going?1:0)} danseur${((e.going||[]).length+(going?1:0))>1?"s":""} y va${((e.going||[]).length+(going?1:0))>1?"nt":""}</p>
+        </div>
+        <div class="ev-go">
+          <button class="mini ${going?"on":""}" data-go="${e.id}">${going?"✓ J'y vais":"J'y vais"}</button>
+          <button class="mini ${done?"done":""}" data-st="${e.id}">${done?"✓ Tamponné":"Tamponner"}</button>
+        </div>
+      </div>`;
+    w.appendChild(el);
+  });
+  w.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>{
+    const id=b.dataset.go;
+    const i=state.going.indexOf(id);
+    i<0?state.going.push(id):state.going.splice(i,1);
+    save(state);renderEvents();
+  });
+  w.querySelectorAll("[data-st]").forEach(b=>b.onclick=()=>{
+    const e=EVENTS.find(x=>x.id===b.dataset.st);
+    if(state.stamps.some(s=>s.id===e.id)){alert("Déjà tamponné ✦");return}
+    openStamp(e);
+  });
+}
+
+/* ---------- danseurs ---------- */
+function renderPeople(){
+  $("pp-count").textContent=SEED_PEOPLE.length+" PASS";
+  $("people").innerHTML=SEED_PEOPLE.map(p=>`
+    <div class="pcard">
+      <div class="pa">${p.a}</div>
+      <b>${esc(p.n)}</b>
+      <span class="pr">${esc(p.r)}</span>
+      <div class="pdots">${p.inks.map(i=>`<span class="pdot" style="background:${inkHex[i]}"></span>`).join("")}</div>
+      <div class="pn">${p.s} tampons</div>
+    </div>`).join("");
+}
+
+/* ---------- sheets ---------- */
+const openSheet=id=>$(id).classList.add("open");
+const closeSheet=id=>$(id).classList.remove("open");
+let curRate=0,curEvent=null;
+function setRate(v){$("st-rate").querySelectorAll("button").forEach(b=>b.classList.toggle("on",+b.dataset.v<=v))}
+function openStamp(e){
+  curEvent=e||null;curRate=0;setRate(0);
+  $("stampTitle").textContent=e?"Tamponner "+e.name:"Nouveau tampon";
+  $("st-name").value=e?e.name:"";
+  $("st-city").value=e?e.city:"";
+  $("st-year").value=e?new Date(e.date).getFullYear():"";
+  openSheet("stampSheet");
+}
+$("addStamp").onclick=()=>openStamp(null);
+$("st-rate").querySelectorAll("button").forEach(b=>b.onclick=()=>{curRate=+b.dataset.v;setRate(curRate)});
+$("saveStamp").onclick=()=>{
+  const n=$("st-name").value.trim();if(!n){$("st-name").focus();return}
+  state.stamps.unshift({id:curEvent?curEvent.id:"m"+Date.now(),name:n,city:$("st-city").value.trim(),year:$("st-year").value.trim(),rating:curRate});
+  closeSheet("stampSheet");render();if(curEvent)renderEvents();curEvent=null;
+};
+$("cancelStamp").onclick=()=>closeSheet("stampSheet");
+$("edit").onclick=null;
+$("editSheet");
+$("saveProfile").onclick=()=>{
+  state.name=$("e-name").value.trim()||state.name;state.role=$("e-role").value.trim();state.origin=$("e-origin").value.trim();
+  state.since=$("e-since").value.trim();state.styles=$("e-styles").value.split(",").map(s=>s.trim()).filter(Boolean);
+  state.level=$("e-level").value.trim();state.teachers=$("e-teachers").value.trim()||"—";state.motto=$("e-motto").value.trim();
+  closeSheet("editSheet");render();
+};
 $("cancelProfile").onclick=()=>closeSheet("editSheet");
 $("photo").onclick=()=>$("fileIn").click();
 $("photo").onkeydown=e=>{if(e.key==="Enter"||e.key===" ")$("fileIn").click()};
 $("fileIn").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{state.photo=r.result;render()};r.readAsDataURL(f)};
-let curRate=0;
-$("addStamp").onclick=()=>{curRate=0;setRate(0);$("st-name").value="";$("st-city").value="";$("st-year").value="";openSheet("stampSheet")};
-$("st-rate").querySelectorAll("button").forEach(b=>b.onclick=()=>{curRate=+b.dataset.v;setRate(curRate)});
-function setRate(v){$("st-rate").querySelectorAll("button").forEach(b=>b.classList.toggle("on",+b.dataset.v<=v))}
-$("saveStamp").onclick=()=>{const n=$("st-name").value.trim();if(!n){$("st-name").focus();return}state.stamps.unshift({name:n,city:$("st-city").value.trim(),year:$("st-year").value.trim(),rating:curRate});closeSheet("stampSheet");render()};
-$("cancelStamp").onclick=()=>closeSheet("stampSheet");
-$("share").onclick=async()=>{const t=`Mon KIZPASS 🦁 — ${state.name}, ${state.stamps.length} festivals tamponnés. Rejoins la communauté.`;try{if(navigator.share){await navigator.share({title:"KIZPASS",text:t,url:location.href});return}}catch(e){}try{await navigator.clipboard.writeText(t+" "+location.href);alert("Lien copié ✦")}catch(e){alert(t)}};
-const openSheet=id=>$(id).classList.add("open");
-const closeSheet=id=>$(id).classList.remove("open");
+$("share").onclick=async()=>{
+  const t=`Mon KIZPASS 🦁 — ${state.name}, ${state.stamps.length} festivals tamponnés. Rejoins la communauté.`;
+  try{if(navigator.share){await navigator.share({title:"KIZPASS",text:t,url:location.href});return}}catch(e){}
+  try{await navigator.clipboard.writeText(t+" "+location.href);alert("Lien copié ✦")}catch(e){alert(t)}
+};
 document.querySelectorAll(".sheet").forEach(s=>s.addEventListener("click",e=>{if(e.target===s)s.classList.remove("open")}));
-render();
+
+/* ouvrir l'éditeur du Pass en tapant sur la carte */
+document.querySelector(".pass").addEventListener("click",ev=>{
+  if(ev.target.closest("#photo"))return;
+  $("e-name").value=state.name;$("e-role").value=state.role;$("e-origin").value=state.origin;$("e-since").value=state.since;
+  $("e-styles").value=(state.styles||[]).join(", ");$("e-level").value=state.level;$("e-teachers").value=state.teachers;$("e-motto").value=state.motto;
+  openSheet("editSheet");
+});
+
+render();renderEvents();renderPeople();
 </script>
 </body>
 </html>
