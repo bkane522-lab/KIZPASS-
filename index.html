@@ -1,503 +1,121 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
+
 <html lang="fr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<meta name="theme-color" content="#B9A3DC" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="#B9A3DC" name="theme-color"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
 <title>KIZPASS — Ton passeport de danse</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<style>
-  :root{
-    --bg:#B9A3DC;
-    --paper:#EFE7FB; --paper-2:#D3C0EE; --edge:#9E85CC;
-    --ink:#170438; --ink-soft:#2E0C63;
-    --muted:#4E3880; --muted-2:#7A5FAF;
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&amp;family=Space+Mono:wght@400;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
 
-    --wax:#43089C; --wax-lo:#170338; --gold-mid:#C9A227;
-    --gold:#7A5510; --gold-foil:#F5DC96; --gold-deep:#4A2F04;
-    --gold-line:rgba(122,85,16,.45);
-
-    --st-violet:#43089C; --st-teal:#044A40; --st-rose:#8E0A3D; --st-ochre:#7A3D03;
-    --radius:20px;
-
-    --foil:linear-gradient(150deg,#FFF6D4 0%,#F0D07A 18%,#A97F1C 42%,#FBEEC0 60%,#8F6512 78%,#E8C766 100%);
-    --wax-face:radial-gradient(125% 115% at 32% 20%, #C46BFF 0%, #8A2BE8 22%, #5A11C4 45%, var(--wax) 62%, var(--wax-lo) 100%);
-    --wax-relief:
-      inset 0 2px 6px rgba(255,255,255,.5),
-      inset 0 -8px 16px rgba(8,0,28,.85),
-      inset 0 0 0 2px var(--gold-mid),
-      inset 0 0 0 3.5px rgba(15,2,48,.6);
-  }
-  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-  html,body{margin:0}
-  body{
-    font-family:"Inter",system-ui,sans-serif;color:var(--ink);
-    background:
-      radial-gradient(700px 340px at 90% -10%, #E4D8F7 0%, transparent 55%),
-      radial-gradient(760px 400px at -8% 104%, #8467B8 0%, transparent 52%),
-      var(--bg);
-    min-height:100dvh;
-    padding:calc(env(safe-area-inset-top) + 14px) 16px calc(env(safe-area-inset-bottom) + 150px);
-    line-height:1.45;
-  }
-  body::after{
-    content:"";position:fixed;inset:0;pointer-events:none;z-index:99;opacity:.62;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.95' numOctaves='4'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
-    mix-blend-mode:multiply;
-  }
-  .wrap{max-width:440px;margin:0 auto}
-
-  .brand{display:flex;align-items:center;gap:12px;padding:2px 4px 16px}
-  .seal{
-    width:44px;height:44px;border-radius:50%;flex:0 0 auto;display:grid;place-items:center;position:relative;
-    background:var(--wax-face);box-shadow:var(--wax-relief), 0 8px 18px rgba(23,3,56,.7);
-  }
-  .seal::before{content:"";position:absolute;top:5px;left:9px;width:17px;height:10px;border-radius:50%;
-    background:linear-gradient(#fff,transparent);opacity:.55;filter:blur(2px)}
-  .seal span{font-family:"Marcellus";font-size:19px;background:var(--foil);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 1px 1px rgba(10,0,35,.7)}
-  .brand b{font-family:"Marcellus";font-weight:400;letter-spacing:.2em;font-size:16px;display:block}
-  .brand span{font-family:"Space Mono";font-size:9px;color:var(--muted);letter-spacing:.26em}
-
-  .view{display:none;animation:rise .4s both}
-  .view.on{display:block}
-
-  /* ===== PASS ===== */
-  .pass{position:relative;border-radius:var(--radius);overflow:hidden;cursor:pointer;
-    background:
-      repeating-radial-gradient(circle at 24% 12%, transparent 0 5px, rgba(67,8,156,.14) 5px 6px),
-      repeating-radial-gradient(circle at 92% 80%, transparent 0 8px, rgba(67,8,156,.11) 8px 9px),
-      repeating-linear-gradient(58deg, transparent 0 7px, rgba(122,85,16,.11) 7px 8px),
-      linear-gradient(160deg,#FFFFFF,var(--paper) 48%,var(--paper-2));
-    border:1px solid var(--edge);
-    box-shadow:0 30px 56px -22px rgba(23,4,56,.85), inset 0 1px 0 #fff;
-  }
-  .crown{
-    background:linear-gradient(#3A0785,var(--wax-lo));
-    padding:12px 18px;display:flex;justify-content:space-between;align-items:center;
-    border-bottom:3px solid transparent;border-image:var(--foil) 1;
-    box-shadow:inset 0 -10px 18px rgba(6,0,24,.65), inset 0 1px 0 rgba(255,255,255,.25);
-  }
-  .crown b{font-family:"Space Mono";font-size:9px;letter-spacing:.24em;
-    background:var(--foil);-webkit-background-clip:text;background-clip:text;color:transparent}
-  .crown i{font-style:normal;font-family:"Space Mono";font-size:9px;letter-spacing:.16em;color:#C4A6FF;text-align:right;line-height:1.5}
-  .crown i b{display:block}
-  .pass-body{padding:16px 18px 12px;position:relative}
-  .pass-body::before{content:"";position:absolute;inset:6px;border-radius:12px;border:1px double var(--gold-line);pointer-events:none}
-  .idrow{display:flex;gap:15px;align-items:flex-start}
-  .photo{width:92px;height:112px;border-radius:8px;flex:0 0 auto;position:relative;
-    background:radial-gradient(120% 90% at 50% 0%, #FFFFFF, #CDB6EE);
-    border:1px solid var(--gold-line);box-shadow:inset 0 0 0 3px rgba(255,255,255,.9), 0 4px 10px rgba(23,4,56,.35);
-    display:grid;place-items:center;overflow:hidden;cursor:pointer;background-size:cover;background-position:center}
-  .photo svg{width:46px;height:46px;fill:var(--muted-2);opacity:.5}
-  .photo .cam{position:absolute;right:5px;bottom:5px;width:24px;height:24px;border-radius:50%;
-    background:var(--wax-face);box-shadow:var(--wax-relief);display:grid;place-items:center;font-size:11px;color:var(--gold-foil)}
-  .photo.hasimg svg{display:none}
-  .fields{flex:1;min-width:0}
-  .field{margin-bottom:9px}
-  .field .k{font-family:"Space Mono";font-size:8.5px;letter-spacing:.2em;color:var(--muted-2);text-transform:uppercase}
-  .field .v{font-size:15px;font-weight:600;word-break:break-word}
-  .field .v.small{font-size:13px;font-weight:500;color:var(--ink-soft)}
-  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
-  .chip{font-size:11px;font-weight:700;padding:4px 11px;border-radius:999px;
-    background:var(--wax-face);color:#F0E2FF;box-shadow:var(--wax-relief)}
-  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px 14px;margin-top:14px}
-  .motto{margin-top:15px;padding:12px 14px;border-radius:8px;
-    background:linear-gradient(#FDF6DE,#EEDCA4);border:1px solid var(--gold-line);
-    box-shadow:inset 0 1px 0 #fff, 0 3px 8px rgba(23,4,56,.18)}
-  .motto .k{font-family:"Space Mono";font-size:8.5px;letter-spacing:.2em;color:var(--gold-deep)}
-  .motto .v{font-family:"Marcellus";font-size:15px;line-height:1.35;color:#2E1D02;margin-top:3px}
-  .mrz{margin:16px -18px -12px;padding:13px 14px;background:linear-gradient(#FFFFFF,#F4ECFF);border-top:2px solid transparent;border-image:var(--foil) 1}
-  .mrz div{font-family:"Space Mono";font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;font-size:clamp(8px,2.9vw,11px);letter-spacing:.06em;line-height:1.9}
-  .mrz div span{color:var(--gold)}
-  .hint{text-align:center;font-family:"Space Mono";font-size:10px;letter-spacing:.1em;color:var(--muted);margin-top:11px;text-transform:uppercase}
-  .hint.hide{display:none}
-
-  .section-h{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:26px 2px 12px}
-  .section-h h2{font-family:"Marcellus";font-weight:400;font-size:17px;letter-spacing:.16em;margin:0}
-  .section-h .add{font-family:"Space Mono";font-size:10px;letter-spacing:.08em;color:var(--gold-foil);cursor:pointer;
-    border:none;border-radius:999px;padding:9px 14px;white-space:nowrap;
-    background:var(--wax-face);box-shadow:var(--wax-relief),0 5px 12px rgba(23,3,56,.5)}
-  .section-h .add:active{transform:translateY(1px)}
-  .section-h .count{font-family:"Space Mono";font-size:9px;letter-spacing:.12em;color:var(--muted)}
-
-  .stamps{position:relative;display:flex;flex-wrap:wrap;justify-content:center;padding:24px 10px;border-radius:var(--radius);min-height:154px;
-    background:repeating-radial-gradient(circle at 70% 30%, transparent 0 6px, rgba(67,8,156,.1) 6px 7px),linear-gradient(160deg,#FFFFFF,var(--paper-2));
-    border:1px solid var(--edge);box-shadow:inset 0 1px 0 #fff,0 14px 30px -20px rgba(23,4,56,.7)}
-  .stamp{width:104px;height:104px;border-radius:50%;flex:0 0 auto;display:grid;place-items:center;text-align:center;padding:12px;cursor:pointer;position:relative;
-    border:3px solid currentColor;color:var(--st-violet);transform:rotate(var(--r,-8deg));margin:var(--my,-8px) var(--mx,-14px);
-    mix-blend-mode:multiply;opacity:.96;animation:thunk .4s cubic-bezier(.2,1.4,.4,1) both}
-  .stamp::after{content:"";position:absolute;inset:5px;border:1.5px solid currentColor;border-radius:50%;opacity:.65}
-  .stamp .n{font-family:"Space Mono";font-weight:700;font-size:9.5px;line-height:1.15;color:currentColor}
-  .stamp .c{font-size:8px;color:currentColor;opacity:.9;margin-top:2px;letter-spacing:.1em;text-transform:uppercase}
-  .stamp .y{font-family:"Marcellus";font-size:14px;color:currentColor;margin-top:2px}
-  .stamp .star{position:absolute;top:12px;left:0;right:0;font-size:7px;color:currentColor}
-  .empty{text-align:center;color:var(--muted);padding:18px 10px}
-  .empty b{display:block;font-family:"Marcellus";font-size:15px;color:var(--ink);margin-bottom:4px}
-  .empty span{font-size:12.5px}
-
-  .stats{display:flex;gap:10px;margin-top:14px}
-  .stat{flex:1;text-align:center;padding:13px 6px;border-radius:14px;
-    background:linear-gradient(#FFF,#EDE2FF);border:1px solid var(--gold-line);box-shadow:inset 0 1px 0 #fff,0 6px 14px -8px rgba(23,4,56,.7)}
-  .stat b{font-family:"Marcellus";font-size:23px;display:block;line-height:1;
-    background:var(--foil);-webkit-background-clip:text;background-clip:text;color:transparent}
-  .stat span{font-family:"Space Mono";font-size:8.5px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
-
-  /* ===== ÉVÉNEMENTS ===== */
-  .ev{display:flex;gap:12px;padding:13px;border-radius:16px;background:linear-gradient(160deg,#FFF,var(--paper));border:1px solid var(--edge);margin-bottom:11px;box-shadow:0 12px 24px -14px rgba(23,4,56,.9),inset 0 1px 0 #fff}
-  .ev-date{width:54px;flex:0 0 auto;text-align:center;padding:8px 0;border-radius:10px;
-    background:var(--wax-face);box-shadow:var(--wax-relief);align-self:flex-start}
-  .ev-date b{font-family:"Marcellus";font-size:20px;display:block;line-height:1;color:#F3E8FF}
-  .ev-date span{font-family:"Space Mono";font-size:8px;letter-spacing:.1em;color:var(--gold-foil);text-transform:uppercase}
-  .ev-body{flex:1;min-width:0}
-  .ev-body h3{margin:0 0 2px;font-size:15px;font-weight:700}
-  .ev-city{font-family:"Space Mono";font-size:9.5px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
-  .ev-who{display:flex;align-items:center;margin-top:8px}
-  .av{width:23px;height:23px;border-radius:50%;display:grid;place-items:center;font-size:11px;background:var(--paper-2);border:1.5px solid #fff;margin-left:-7px;box-shadow:0 2px 5px rgba(23,4,56,.5)}
-  .av:first-child{margin-left:0}
-  .ev-who p{margin:0 0 0 9px;font-size:11.5px;color:var(--muted)}
-  .ev-go{margin-top:10px;display:flex;gap:7px}
-  .mini{font-family:"Space Mono";font-size:9.5px;letter-spacing:.06em;padding:8px 12px;border-radius:999px;cursor:pointer;
-    border:1px solid var(--gold-line);background:linear-gradient(#FFF,#EDE2FF);color:var(--gold-deep);font-weight:700}
-  .mini.on{border:none;color:var(--gold-foil);background:var(--wax-face);box-shadow:var(--wax-relief)}
-  .mini.done{background:linear-gradient(#E7D8FC,#CFB6F0);border-color:rgba(67,8,156,.5);color:var(--wax)}
-  .mini:active{transform:translateY(1px)}
-
-  /* ===== DANSEURS ===== */
-  .people{display:grid;grid-template-columns:1fr 1fr;gap:11px}
-  .pcard{border-radius:16px;padding:14px 13px;background:linear-gradient(160deg,#FFF,var(--paper-2));border:1px solid var(--edge);text-align:center;box-shadow:0 12px 24px -14px rgba(23,4,56,.9),inset 0 1px 0 #fff;cursor:pointer}
-  .pcard .pa{width:56px;height:56px;border-radius:50%;margin:0 auto 9px;display:grid;place-items:center;font-size:25px;
-    background:var(--wax-face);box-shadow:var(--wax-relief),0 6px 13px rgba(23,3,56,.5)}
-  .pcard b{font-size:13.5px;display:block}
-  .pcard .pr{font-family:"Space Mono";font-size:8.5px;letter-spacing:.1em;color:var(--muted-2);text-transform:uppercase;margin-top:2px;display:block}
-  .pcard .pn{margin-top:9px;font-size:11px;color:var(--wax);font-weight:700}
-  .pcard .pdots{display:flex;justify-content:center;gap:4px;margin-top:8px}
-  .pdot{width:9px;height:9px;border-radius:50%;box-shadow:inset 0 -1px 2px rgba(0,0,0,.55),inset 0 1px 1px rgba(255,255,255,.45)}
-
-  /* ===== NAV ===== */
-  .nav{position:fixed;left:0;right:0;bottom:0;z-index:40;max-width:440px;margin:0 auto;
-    padding:8px 10px calc(8px + env(safe-area-inset-bottom));
-    background:rgba(239,231,251,.95);backdrop-filter:blur(14px);border-top:2px solid transparent;border-image:var(--foil) 1;display:flex}
-  .tab{flex:1;background:none;border:none;padding:8px 4px;cursor:pointer;color:var(--muted-2);display:grid;gap:3px;justify-items:center}
-  .tab i{font-style:normal;font-size:18px;opacity:.45;transition:opacity .2s}
-  .tab b{font-family:"Space Mono";font-size:8.5px;letter-spacing:.1em;font-weight:700;text-transform:uppercase}
-  .tab.on{color:var(--wax)}
-  .tab.on i{opacity:1}
-  .fab{position:fixed;right:16px;bottom:calc(80px + env(safe-area-inset-bottom));z-index:41;
-    border:none;border-radius:14px;padding:15px 19px;cursor:pointer;font-family:"Inter";font-weight:700;font-size:14px;
-    color:var(--gold-foil);background:var(--wax-face);
-    box-shadow:var(--wax-relief),0 12px 28px -6px rgba(23,3,56,.85)}
-  .fab:active{transform:translateY(2px)}
-
-  .sheet{position:fixed;inset:0;z-index:50;display:none;background:rgba(23,4,56,.65);backdrop-filter:blur(6px);align-items:flex-end}
-  .sheet.open{display:flex;animation:fade .2s both}
-  .sheet-inner{width:100%;max-width:440px;margin:0 auto;background:var(--paper);border-top:3px solid transparent;border-image:var(--foil) 1;border-radius:22px 22px 0 0;padding:20px 18px calc(20px + env(safe-area-inset-bottom));max-height:88dvh;overflow:auto;animation:rise .3s both}
-  .sheet h3{font-family:"Marcellus";font-weight:400;letter-spacing:.1em;font-size:19px;margin:2px 0 16px}
-  label.f{display:block;margin-bottom:13px}
-  label.f .k{font-family:"Space Mono";font-size:9px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;display:block;margin-bottom:5px}
-  .in{width:100%;background:#fff;border:1px solid var(--edge);color:var(--ink);border-radius:9px;padding:12px;font-size:15px;font-family:"Inter"}
-  .in:focus{outline:none;border-color:var(--wax);box-shadow:0 0 0 3px rgba(67,8,156,.2)}
-  .row2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
-  .rate{display:flex;gap:6px}
-  .rate button{flex:1;background:#fff;border:1px solid var(--edge);color:var(--muted-2);border-radius:9px;padding:11px 0;font-size:16px;cursor:pointer}
-  .rate button.on{color:var(--gold-foil);border:none;background:var(--wax-face);box-shadow:var(--wax-relief)}
-  .sheet-actions{display:flex;gap:10px;margin-top:8px}
-  .btn{flex:1;border:none;border-radius:13px;padding:15px;cursor:pointer;font-family:"Inter";font-weight:700;font-size:15px}
-  .btn-primary{color:var(--gold-foil);background:var(--wax-face);box-shadow:var(--wax-relief),0 10px 20px -6px rgba(23,3,56,.8)}
-  .btn-primary:active{transform:translateY(2px)}
-  .btn-ghost{color:var(--gold-deep);background:linear-gradient(#FFF,#EDE2FF);border:1px solid var(--gold-line)}
-  :focus-visible{outline:2px solid var(--wax);outline-offset:2px}
-  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-  @keyframes thunk{from{opacity:0;transform:rotate(var(--r,-8deg)) scale(1.5)}to{opacity:.96;transform:rotate(var(--r,-8deg)) scale(1)}}
-  @keyframes fade{from{opacity:0}to{opacity:1}}
-  @media (prefers-reduced-motion:reduce){*{animation:none!important}}
-</style>
-</head>
+<link href="manifest.webmanifest" rel="manifest"/><link href="styles.css" rel="stylesheet"/><link href="icons/icon-192.png" rel="apple-touch-icon"/><meta content="KIZPASS — le passeport numérique des danseurs Kizomba." name="description"/></head>
 <body>
 <div class="wrap">
-  <div class="brand">
-    <div class="seal"><span>K</span></div>
-    <div><b>KIZPASS</b><span id="subtitle">PASSEPORT DE DANSE</span></div>
-  </div>
-
-  <div class="view on" id="v-pass">
-    <div class="pass" id="passCard">
-      <div class="crown">
-        <b>COMMUNAUTÉ&nbsp;KIZOMBA</b>
-        <i>TYPE&nbsp;·&nbsp;KP<b>N° <span id="passno">—</span></b></i>
-      </div>
-      <div class="pass-body">
-        <div class="idrow">
-          <div class="photo" id="photo" role="button" tabindex="0" aria-label="Changer la photo">
-            <svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 100-10 5 5 0 000 10zm0 2c-5 0-9 2.5-9 5.5V22h18v-2.5C21 16.5 17 14 12 14z"/></svg>
-            <div class="cam">＋</div>
-          </div>
-          <div class="fields">
-            <div class="field"><div class="k">Nom / Blaze</div><div class="v" id="f-name">—</div></div>
-            <div class="field"><div class="k">Rôle</div><div class="v small" id="f-role">—</div></div>
-            <div class="field"><div class="k">Origine</div><div class="v small" id="f-origin">—</div></div>
-            <div class="field"><div class="k">Styles</div><div class="chips" id="f-styles"></div></div>
-          </div>
-        </div>
-        <div class="grid2">
-          <div class="field"><div class="k">Niveau</div><div class="v small" id="f-level">—</div></div>
-          <div class="field"><div class="k">Danse depuis</div><div class="v small" id="f-since">—</div></div>
-          <div class="field" style="grid-column:1/-1"><div class="k">Professeurs</div><div class="v small" id="f-teachers">—</div></div>
-        </div>
-        <div class="motto"><div class="k">DEVISE</div><div class="v" id="f-motto">—</div></div>
-        <div class="mrz" id="mrz"><div>—</div><div>—</div></div>
-      </div>
-    </div>
-    <div class="hint" id="hint">Tape sur le passeport pour le remplir</div>
-
-    <div class="section-h">
-      <h2>TAMPONS</h2>
-      <button class="add" id="addStamp">＋ Tamponner</button>
-    </div>
-    <div class="stamps" id="stamps"></div>
-    <div class="stats">
-      <div class="stat"><b id="s-fest">0</b><span>Tampons</span></div>
-      <div class="stat"><b id="s-city">0</b><span>Villes</span></div>
-      <div class="stat"><b id="s-style">0</b><span>Styles</span></div>
-    </div>
-  </div>
-
-  <div class="view" id="v-events">
-    <div class="section-h" style="margin-top:4px">
-      <h2>À VENIR</h2><span class="count" id="ev-count">—</span>
-    </div>
-    <div id="events"></div>
-  </div>
-
-  <div class="view" id="v-people">
-    <div class="section-h" style="margin-top:4px">
-      <h2>DANSEURS</h2><span class="count" id="pp-count">—</span>
-    </div>
-    <div class="people" id="people"></div>
-  </div>
+<div class="brand">
+<div class="seal"><span>K</span></div>
+<div><b>KIZPASS</b><span id="subtitle">PASSEPORT DE DANSE</span></div>
+<button class="install-btn" hidden="" id="installBtn">Installer</button></div>
+<div class="view on" id="v-pass">
+<div class="pass" id="passCard">
+<div class="crown">
+<b>COMMUNAUTÉ KIZOMBA</b>
+<i>TYPE · KP<b>N° <span id="passno">—</span></b></i>
 </div>
-
-<button class="fab" id="share">Partager mon KIZPASS</button>
+<div class="pass-body">
+<div class="idrow">
+<div aria-label="Changer la photo" class="photo" id="photo" role="button" tabindex="0">
+<svg viewbox="0 0 24 24"><path d="M12 12a5 5 0 100-10 5 5 0 000 10zm0 2c-5 0-9 2.5-9 5.5V22h18v-2.5C21 16.5 17 14 12 14z"></path></svg>
+<div aria-hidden="true" class="cam">📷</div>
+</div>
+<div class="fields">
+<div class="field"><div class="k">Nom / Blaze</div><div class="v" id="f-name">—</div></div>
+<div class="field"><div class="k">Rôle</div><div class="v small" id="f-role">—</div></div>
+<div class="field"><div class="k">Origine</div><div class="v small" id="f-origin">—</div></div>
+<div class="field"><div class="k">Styles</div><div class="chips" id="f-styles"></div></div>
+</div>
+</div>
+<div class="grid2">
+<div class="field"><div class="k">Niveau</div><div class="v small" id="f-level">—</div></div>
+<div class="field"><div class="k">Danse depuis</div><div class="v small" id="f-since">—</div></div>
+<div class="field" style="grid-column:1/-1"><div class="k">Professeurs</div><div class="v small" id="f-teachers">—</div></div>
+</div>
+<div class="motto"><div class="k">DEVISE</div><div class="v" id="f-motto">—</div></div>
+<div class="mrz" id="mrz"><div>—</div><div>—</div></div>
+</div>
+</div>
+<div class="hint" id="hint">Complète ton passeport pour commencer</div><button class="edit-pass-btn" id="editPass">Modifier mon Pass</button>
+<div class="section-h">
+<h2>TAMPONS</h2>
+<button class="add" id="addStamp">＋ Tamponner</button>
+</div>
+<div class="stamps" id="stamps"></div>
+<div class="stats">
+<div class="stat"><b id="s-fest">0</b><span>Tampons</span></div>
+<div class="stat"><b id="s-city">0</b><span>Villes</span></div>
+<div class="stat"><b id="s-style">0</b><span>Styles</span></div>
+</div><button class="share-pass-btn" id="share">Partager mon KIZPASS</button>
+</div>
+<div class="view" id="v-events">
+<div class="section-h" style="margin-top:4px">
+<h2>À VENIR</h2><span class="count" id="ev-count">—</span>
+</div>
+<div id="events"></div>
+</div>
+<div class="view" id="v-people">
+<div class="section-h" style="margin-top:4px">
+<h2>DANSEURS</h2><span class="count" id="pp-count">—</span>
+</div>
+<div class="people" id="people"></div>
+</div>
+</div>
 
 <nav class="nav">
-  <button class="tab on" data-v="pass"><i>🪪</i><b>Mon Pass</b></button>
-  <button class="tab" data-v="events"><i>📍</i><b>Événements</b></button>
-  <button class="tab" data-v="people"><i>👥</i><b>Danseurs</b></button>
+<button class="tab on" data-v="pass"><i>🪪</i><b>Mon Pass</b></button>
+<button class="tab" data-v="events"><i>📍</i><b>Événements</b></button>
+<button class="tab" data-v="people"><i>👥</i><b>Danseurs</b></button>
 </nav>
-
 <div class="sheet" id="editSheet">
-  <div class="sheet-inner">
-    <h3>Éditer le Pass</h3>
-    <label class="f"><span class="k">Nom / Blaze</span><input class="in" id="e-name" placeholder="Ton blaze"></label>
-    <label class="f"><span class="k">Rôle</span><input class="in" id="e-role" placeholder="Leader · Follower · DJ · Prof"></label>
-    <div class="row2">
-      <label class="f"><span class="k">Origine</span><input class="in" id="e-origin" placeholder="Ta ville"></label>
-      <label class="f"><span class="k">Danse depuis</span><input class="in" id="e-since" placeholder="2019"></label>
-    </div>
-    <label class="f"><span class="k">Styles (virgules)</span><input class="in" id="e-styles" placeholder="Kizomba, Urban Kiz, Semba"></label>
-    <label class="f"><span class="k">Niveau</span><input class="in" id="e-level" placeholder="Intermédiaire +"></label>
-    <label class="f"><span class="k">Professeurs</span><input class="in" id="e-teachers"></label>
-    <label class="f"><span class="k">Devise</span><input class="in" id="e-motto" placeholder="Ta phrase"></label>
-    <div class="sheet-actions">
-      <button class="btn btn-primary" id="saveProfile">Enregistrer</button>
-      <button class="btn btn-ghost" id="cancelProfile">Annuler</button>
-    </div>
-  </div>
+<div class="sheet-inner">
+<h3>Éditer le Pass</h3>
+<label class="f"><span class="k">Nom / Blaze</span><input class="in" id="e-name" placeholder="Ton blaze"/></label>
+<label class="f"><span class="k">Rôle</span><input class="in" id="e-role" placeholder="Leader · Follower · DJ · Prof"/></label>
+<div class="row2">
+<label class="f"><span class="k">Origine</span><input class="in" id="e-origin" placeholder="Ta ville"/></label>
+<label class="f"><span class="k">Danse depuis</span><input class="in" id="e-since" placeholder="2019"/></label>
 </div>
-
+<label class="f"><span class="k">Styles (virgules)</span><input class="in" id="e-styles" placeholder="Kizomba, Urban Kiz, Semba"/></label>
+<label class="f"><span class="k">Niveau</span><input class="in" id="e-level" placeholder="Intermédiaire +"/></label>
+<label class="f"><span class="k">Professeurs</span><input class="in" id="e-teachers"/></label>
+<label class="f"><span class="k">Devise</span><input class="in" id="e-motto" placeholder="Ta phrase"/></label>
+<div class="sheet-actions">
+<button class="btn btn-primary" id="saveProfile">Enregistrer</button>
+<button class="btn btn-ghost" id="cancelProfile">Annuler</button>
+</div>
+</div>
+</div>
 <div class="sheet" id="stampSheet">
-  <div class="sheet-inner">
-    <h3 id="stampTitle">Nouveau tampon</h3>
-    <label class="f"><span class="k">Festival / Social</span><input class="in" id="st-name"></label>
-    <div class="row2">
-      <label class="f"><span class="k">Ville</span><input class="in" id="st-city"></label>
-      <label class="f"><span class="k">Année</span><input class="in" id="st-year" inputmode="numeric"></label>
-    </div>
-    <label class="f"><span class="k">Ton ressenti</span></label>
-    <div class="rate" id="st-rate">
-      <button data-v="1">★</button><button data-v="2">★</button><button data-v="3">★</button><button data-v="4">★</button><button data-v="5">★</button>
-    </div>
-    <div class="sheet-actions" style="margin-top:16px">
-      <button class="btn btn-primary" id="saveStamp">Tamponner</button>
-      <button class="btn btn-ghost" id="cancelStamp">Annuler</button>
-    </div>
-  </div>
+<div class="sheet-inner">
+<h3 id="stampTitle">Nouveau tampon</h3>
+<label class="f"><span class="k">Festival / Social</span><input class="in" id="st-name"/></label>
+<div class="row2">
+<label class="f"><span class="k">Ville</span><input class="in" id="st-city"/></label>
+<label class="f"><span class="k">Année</span><input class="in" id="st-year" inputmode="numeric"/></label>
 </div>
+<label class="f"><span class="k">Ton ressenti</span></label>
+<div class="rate" id="st-rate">
+<button data-v="1">★</button><button data-v="2">★</button><button data-v="3">★</button><button data-v="4">★</button><button data-v="5">★</button>
+</div>
+<div class="sheet-actions" style="margin-top:16px">
+<button class="btn btn-primary" id="saveStamp">Tamponner</button>
+<button class="btn btn-ghost" id="cancelStamp">Annuler</button>
+</div>
+</div>
+</div>
+<input accept="image/*" hidden="" id="fileIn" type="file">
 
-<input type="file" id="fileIn" accept="image/*" hidden />
-
-<script>
-async function fetchEvents(){
-  // const r = await fetch("/api/events"); return await r.json();
-  return SEED_EVENTS;
-}
-const SEED_EVENTS=[
-  {id:"e1",name:"Lisboa Kizomba Nights",city:"Lisboa",date:"2026-08-14",going:["🦊","🐼","🦉"]},
-  {id:"e2",name:"Urban Kiz Weekender",city:"Paris",date:"2026-09-05",going:["🐯","🦋"]},
-  {id:"e3",name:"Semba & Soul",city:"Luanda",date:"2026-09-26",going:["🐻","🦅","🐸","🦊"]},
-  {id:"e4",name:"Afrohouse Rooftop",city:"Rotterdam",date:"2026-10-10",going:["🐰"]},
-  {id:"e5",name:"Kiz Marathon",city:"Barcelona",date:"2026-11-21",going:["🐺","🦝","🐨"]}
-];
-const SEED_PEOPLE=[
-  {a:"🦊",n:"Ana R.",r:"Follower · Lisboa",s:7,inks:[0,2,1]},
-  {a:"🐼",n:"Malik",r:"Leader · Paris",s:12,inks:[1,3,0]},
-  {a:"🦉",n:"Chloé",r:"Prof · Lyon",s:19,inks:[2,0,3]},
-  {a:"🐯",n:"Dju",r:"DJ · Rotterdam",s:24,inks:[3,1,2]},
-  {a:"🦋",n:"Inês",r:"Follower · Porto",s:5,inks:[0,1,2]},
-  {a:"🐻",n:"Kevin",r:"Leader · Bruxelles",s:9,inks:[2,3,0]}
-];
-
-const KEY="kizpass.v1";
-const load=()=>{try{return JSON.parse(localStorage.getItem(KEY))}catch(e){return null}};
-const save=s=>{try{localStorage.setItem(KEY,JSON.stringify(s))}catch(e){}};
-let state=load()||{name:"",role:"",origin:"",styles:[],level:"",since:"",teachers:"",motto:"",photo:null,stamps:[],going:[]};
-if(!state.going)state.going=[];
-const $=id=>document.getElementById(id);
-const inks=["var(--st-violet)","var(--st-teal)","var(--st-rose)","var(--st-ochre)"];
-const inkHex=["#43089C","#044A40","#8E0A3D","#7A3D03"];
-const MOIS=["JAN","FÉV","MAR","AVR","MAI","JUIN","JUIL","AOÛT","SEP","OCT","NOV","DÉC"];
-const esc=t=>(t==null?"":String(t)).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const chev=s=>s.replace(/</g,'<span>‹</span>');
-function passNumber(n){if(!n)return "——————";let h=0;for(const c of n)h=(h*31+c.charCodeAt(0))>>>0;return "KP"+String(h%900000+100000)}
-function mrz(s){const cl=t=>(t||"").toUpperCase().replace(/[^A-Z0-9]+/g,"<");const pad=(t,n)=>(t+"<".repeat(n)).slice(0,n);return [pad(`KIZ<PASS<<${cl(s.name)}<<${cl(s.role)}`,42),pad(`${cl(s.origin)}<<${cl(s.motto)}`,42)]}
-
-const SUB={pass:"PASSEPORT DE DANSE",events:"QUI VA OÙ",people:"LA COMMUNAUTÉ"};
-document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{
-  const v=t.dataset.v;
-  document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("on",x===t));
-  document.querySelectorAll(".view").forEach(x=>x.classList.remove("on"));
-  $("v-"+v).classList.add("on");
-  $("subtitle").textContent=SUB[v];
-  $("share").style.display=v==="pass"?"":"none";
-  window.scrollTo(0,0);
-});
-
-function render(){
-  $("f-name").textContent=state.name||"—";$("f-role").textContent=state.role||"—";$("f-origin").textContent=state.origin||"—";
-  $("f-level").textContent=state.level||"—";$("f-since").textContent=state.since||"—";$("f-teachers").textContent=state.teachers||"—";
-  $("f-motto").textContent=state.motto||"—";$("passno").textContent=passNumber(state.name);
-  $("hint").classList.toggle("hide",!!state.name);
-  const sc=$("f-styles");sc.innerHTML="";(state.styles||[]).forEach(x=>{const e=document.createElement("span");e.className="chip";e.textContent=x;sc.appendChild(e)});
-  const p=$("photo");if(state.photo){p.classList.add("hasimg");p.style.backgroundImage=`url(${state.photo})`}else{p.classList.remove("hasimg");p.style.backgroundImage=""}
-  const [l1,l2]=mrz(state);$("mrz").innerHTML=`<div>${chev(l1)}</div><div>${chev(l2)}</div>`;
-  renderStamps();save(state);
-}
-function renderStamps(){
-  const w=$("stamps");w.innerHTML="";
-  if(!state.stamps.length){w.innerHTML=`<div class="empty"><b>Aucun tampon pour l'instant</b><span>Choisis un festival dans Événements et tamponne-le.</span></div>`}
-  else{state.stamps.forEach((st,i)=>{
-    const el=document.createElement("div");el.className="stamp";
-    el.style.color=inks[i%inks.length];
-    el.style.setProperty("--r",`${(i%2?1:-1)*(4+(i*13)%13)}deg`);
-    el.style.setProperty("--mx",`${-10-((i*7)%9)}px`);
-    el.style.setProperty("--my",`${-4-((i*5)%11)}px`);
-    el.style.zIndex=state.stamps.length-i;
-    el.innerHTML=`<div class="star">${"★".repeat(st.rating||0)}</div><div><div class="n">${esc(st.name)}</div><div class="c">${esc(st.city)}</div><div class="y">${esc(st.year)}</div></div>`;
-    el.onclick=()=>{if(confirm(`Retirer le tampon "${st.name}" ?`)){state.stamps.splice(i,1);render();renderEvents()}};
-    w.appendChild(el)})}
-  $("s-fest").textContent=state.stamps.length;
-  $("s-city").textContent=new Set(state.stamps.map(s=>(s.city||"").toLowerCase()).filter(Boolean)).size;
-  $("s-style").textContent=(state.styles||[]).length;
-}
-
-let EVENTS=[];
-async function renderEvents(){
-  const w=$("events");
-  if(!EVENTS.length){w.innerHTML=`<div class="empty"><span>Chargement…</span></div>`;
-    try{EVENTS=await fetchEvents()}catch(e){EVENTS=[]}}
-  if(!EVENTS.length){w.innerHTML=`<div class="empty"><b>Aucun événement</b><span>Reviens bientôt, la liste se remplit.</span></div>`;return}
-  $("ev-count").textContent=EVENTS.length+" ÉVÉNEMENTS";
-  w.innerHTML="";
-  EVENTS.forEach(e=>{
-    const d=new Date(e.date);
-    const going=state.going.includes(e.id);
-    const done=state.stamps.some(s=>s.id===e.id);
-    const n=(e.going||[]).length+(going?1:0);
-    const el=document.createElement("div");el.className="ev";
-    el.innerHTML=`
-      <div class="ev-date"><b>${d.getDate()}</b><span>${MOIS[d.getMonth()]}</span></div>
-      <div class="ev-body">
-        <h3>${esc(e.name)}</h3>
-        <div class="ev-city">${esc(e.city)}</div>
-        <div class="ev-who">
-          ${(e.going||[]).slice(0,4).map(a=>`<div class="av">${a}</div>`).join("")}
-          <p>${n} danseur${n>1?"s":""} y va${n>1?"nt":""}</p>
-        </div>
-        <div class="ev-go">
-          <button class="mini ${going?"on":""}" data-go="${e.id}">${going?"✓ J'y vais":"J'y vais"}</button>
-          <button class="mini ${done?"done":""}" data-st="${e.id}">${done?"✓ Tamponné":"Tamponner"}</button>
-        </div>
-      </div>`;
-    w.appendChild(el);
-  });
-  w.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>{
-    const id=b.dataset.go,i=state.going.indexOf(id);
-    i<0?state.going.push(id):state.going.splice(i,1);
-    save(state);renderEvents();
-  });
-  w.querySelectorAll("[data-st]").forEach(b=>b.onclick=()=>{
-    const e=EVENTS.find(x=>x.id===b.dataset.st);
-    if(state.stamps.some(s=>s.id===e.id)){alert("Déjà tamponné ✦");return}
-    openStamp(e);
-  });
-}
-
-function renderPeople(){
-  $("pp-count").textContent=SEED_PEOPLE.length+" PASS";
-  $("people").innerHTML=SEED_PEOPLE.map(p=>`
-    <div class="pcard">
-      <div class="pa">${p.a}</div>
-      <b>${esc(p.n)}</b>
-      <span class="pr">${esc(p.r)}</span>
-      <div class="pdots">${p.inks.map(i=>`<span class="pdot" style="background:${inkHex[i]}"></span>`).join("")}</div>
-      <div class="pn">${p.s} tampons</div>
-    </div>`).join("");
-}
-
-const openSheet=id=>$(id).classList.add("open");
-const closeSheet=id=>$(id).classList.remove("open");
-let curRate=0,curEvent=null;
-function setRate(v){$("st-rate").querySelectorAll("button").forEach(b=>b.classList.toggle("on",+b.dataset.v<=v))}
-function openStamp(e){
-  curEvent=e||null;curRate=0;setRate(0);
-  $("stampTitle").textContent=e?"Tamponner "+e.name:"Nouveau tampon";
-  $("st-name").value=e?e.name:"";$("st-city").value=e?e.city:"";
-  $("st-year").value=e?new Date(e.date).getFullYear():"";
-  openSheet("stampSheet");
-}
-$("addStamp").onclick=()=>openStamp(null);
-$("st-rate").querySelectorAll("button").forEach(b=>b.onclick=()=>{curRate=+b.dataset.v;setRate(curRate)});
-$("saveStamp").onclick=()=>{
-  const n=$("st-name").value.trim();if(!n){$("st-name").focus();return}
-  state.stamps.unshift({id:curEvent?curEvent.id:"m"+Date.now(),name:n,city:$("st-city").value.trim(),year:$("st-year").value.trim(),rating:curRate});
-  closeSheet("stampSheet");render();renderEvents();curEvent=null;
-};
-$("cancelStamp").onclick=()=>closeSheet("stampSheet");
-$("saveProfile").onclick=()=>{
-  state.name=$("e-name").value.trim();state.role=$("e-role").value.trim();state.origin=$("e-origin").value.trim();
-  state.since=$("e-since").value.trim();state.styles=$("e-styles").value.split(",").map(s=>s.trim()).filter(Boolean);
-  state.level=$("e-level").value.trim();state.teachers=$("e-teachers").value.trim();state.motto=$("e-motto").value.trim();
-  closeSheet("editSheet");render();
-};
-$("cancelProfile").onclick=()=>closeSheet("editSheet");
-$("photo").onclick=e=>{e.stopPropagation();$("fileIn").click()};
-$("photo").onkeydown=e=>{if(e.key==="Enter"||e.key===" ")$("fileIn").click()};
-$("fileIn").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{state.photo=r.result;render()};r.readAsDataURL(f)};
-$("passCard").onclick=()=>{
-  $("e-name").value=state.name;$("e-role").value=state.role;$("e-origin").value=state.origin;$("e-since").value=state.since;
-  $("e-styles").value=(state.styles||[]).join(", ");$("e-level").value=state.level;$("e-teachers").value=state.teachers;$("e-motto").value=state.motto;
-  openSheet("editSheet");
-};
-$("share").onclick=async()=>{
-  const t=`Mon KIZPASS — ${state.name||"passeport de danse"}, ${state.stamps.length} festival${state.stamps.length>1?"s":""} tamponné${state.stamps.length>1?"s":""}.`;
-  try{if(navigator.share){await navigator.share({title:"KIZPASS",text:t,url:location.href});return}}catch(e){}
-  try{await navigator.clipboard.writeText(t+" "+location.href);alert("Lien copié ✦")}catch(e){alert(t)}
-};
-document.querySelectorAll(".sheet").forEach(s=>s.addEventListener("click",e=>{if(e.target===s)s.classList.remove("open")}));
-
-render();renderEvents();renderPeople();
-</script>
-</body>
+</input><script defer="True" src="app.js"></script></body>
 </html>
